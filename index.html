@@ -6,55 +6,27 @@
   <style>
     body { font-family: Arial, sans-serif; background: #f2f2f2; display:flex; justify-content:center; align-items:center; height:100vh; margin: 0; }
     .card { display:flex; background:#fff; border-radius:12px; box-shadow:0 4px 8px rgba(0,0,0,0.2); overflow:hidden; max-width:900px; }
-    .card img { width:300px; object-fit:cover; }
+    .card img { width:300px; height: auto; object-fit:cover; }
     .card-content { flex:1; padding:20px; display:flex; flex-direction:column; justify-content:space-between; }
     .box { border:1px solid #ccc; border-radius:8px; padding:15px; margin-bottom:15px; }
     .box input[type="text"] { width: calc(100% - 16px); padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
     .box input[type="text"]:first-child { margin-bottom: 10px; }
-    .divisoes label { margin-right:15px; cursor:pointer; }
+    .divisoes label { margin-right:15px; cursor:pointer; display: inline-block; margin-bottom: 5px; }
     button[type="submit"] { width: 100%; background:#28a745;color:white;padding:12px 20px;border:none;border-radius:6px;cursor:pointer; font-size: 16px; }
     .valores { background:#007BFF; color:white; border-radius:8px; padding:15px; text-align:center; margin-top:20px; }
     .pix { margin-top:15px; font-weight:bold; }
-    .msg { margin-top:15px; padding:10px; border-radius:6px; display:none; }
+    .msg { margin-top:15px; padding:10px; border-radius:6px; display:none; text-align: center; }
     .msg.success { background:#28a745; color:white; }
     .msg.error { background:#dc3545; color:white; }
-
-    /* --- NOVOS ESTILOS ADICIONADOS --- */
-    .valores-container {
-      display: flex; /* Alinha os boxes lado a lado */
-      justify-content: space-between; /* Distribui o espaço entre eles */
-      gap: 10px; /* Cria um espaço de 10px entre cada box */
-      margin-top: 15px; /* Adiciona um espaço abaixo do título "VALORES" */
-    }
-
-    .valor-box {
-      flex: 1; /* Faz cada box ocupar um espaço igual */
-      background: rgba(255, 255, 255, 0.15); /* Fundo branco com transparência para se destacar */
-      border-radius: 8px; /* Bordas arredondadas */
-      padding: 10px; /* Espaçamento interno */
-      text-align: center; /* Centraliza o texto */
-    }
-
-    .valor-box h4 {
-      margin: 0 0 5px 0; /* Remove margem padrão e adiciona um pequeno espaço abaixo */
-      font-size: 0.9em;
-      font-weight: normal;
-      text-transform: uppercase;
-    }
-
-    .valor-box p {
-      margin: 0; /* Remove margem padrão do parágrafo */
-      font-size: 0.9em;
-      line-height: 1.4; /* Melhora a leitura quando há duas linhas */
-      font-weight: bold;
-    }
-    /* --- FIM DOS NOVOS ESTILOS --- */
-
+    .valores-container { display: flex; justify-content: space-between; gap: 10px; margin-top: 15px; }
+    .valor-box { flex: 1; background: rgba(255, 255, 255, 0.15); border-radius: 8px; padding: 10px; text-align: center; }
+    .valor-box h4 { margin: 0 0 5px 0; font-size: 0.9em; font-weight: normal; text-transform: uppercase; }
+    .valor-box p { margin: 0; font-size: 0.9em; line-height: 1.4; font-weight: bold; }
   </style>
 </head>
 <body>
   <div class="card">
-    <img src="poster.jpg" alt="Campeonato ETMPAN">
+    <img src="poster.jpg" alt="Campeonato ETMPAN" id="poster-campeonato">
     <div class="card-content">
       <form id="formInscricao">
         <div class="box">
@@ -63,9 +35,10 @@
         </div>
 
         <div class="box divisoes">
-          <label><input type="radio" name="divisao" value="1ª Divisão" required> 1ª Divisão</label>
-          <label><input type="radio" name="divisao" value="2ª Divisão"> 2ª Divisão</label>
-          <label><input type="radio" name="divisao" value="3ª Divisão"> 3ª Divisão</label>
+          <p style="margin:0 0 10px 0; font-size: 0.9em; color: #555;">Escolha até duas divisões:</p>
+          <label><input type="checkbox" name="divisao" value="1ª Divisão"> 1ª Divisão</label>
+          <label><input type="checkbox" name="divisao" value="2ª Divisão"> 2ª Divisão</label>
+          <label><input type="checkbox" name="divisao" value="3ª Divisão"> 3ª Divisão</label>
         </div>
 
         <button type="submit">Enviar Inscrição</button>
@@ -76,22 +49,13 @@
       <div class="valores">
         <h3>VALORES</h3>
         <div class="valores-container">
-          <div class="valor-box">
-            <h4>Estudante</h4>
-            <p>R$ 20</p>
-          </div>
-          <div class="valor-box">
-            <h4>Sócio</h4>
-            <p>01 DIV R$ 25<br>02 DIV R$ 30</p>
-          </div>
-          <div class="valor-box">
-            <h4>Não Sócio</h4>
-            <p>01 DIV R$ 40<br>02 DIV R$ 60</p>
-          </div>
+          <div class="valor-box"><h4>Estudante</h4><p>R$ 20</p></div>
+          <div class="valor-box"><h4>Sócio</h4><p>01 DIV R$ 25<br>02 DIV R$ 30</p></div>
+          <div class="valor-box"><h4>Não Sócio</h4><p>01 DIV R$ 40<br>02 DIV R$ 60</p></div>
         </div>
         <div class="pix">PIX: 71-9935-3004</div>
       </div>
-      </div>
+    </div>
   </div>
 
   <script>
@@ -99,21 +63,26 @@
     const form = document.getElementById("formInscricao");
     const msgBox = document.getElementById("mensagem");
 
+    // --- CÓDIGO ANTIGO DO FORMULÁRIO (COM AJUSTE PARA VALIDAÇÃO) ---
     form.addEventListener("submit", e => {
       e.preventDefault();
-      // Adicionamos um pequeno delay visual para o usuário perceber a ação
+      
+      // Validação: verificar se pelo menos um checkbox foi marcado
+      const divisoesSelecionadas = document.querySelectorAll('input[name="divisao"]:checked').length;
+      if (divisoesSelecionadas === 0) {
+          msgBox.textContent = "Por favor, selecione pelo menos uma divisão.";
+          msgBox.className = "msg error";
+          msgBox.style.display = "block";
+          return; // Impede o envio do formulário
+      }
+
       const submitButton = form.querySelector('button[type="submit"]');
       submitButton.textContent = 'Enviando...';
       submitButton.disabled = true;
       
       const formData = new FormData(form);
       
-      // O endpoint do Google Apps Script espera um corpo de formulário, não JSON.
-      // Vamos manter o envio como FormData que é mais compatível por padrão.
-      fetch(scriptURL, {
-        method: "POST",
-        body: formData // Enviando como FormData
-      })
+      fetch(scriptURL, { method: "POST", body: formData })
       .then(response => {
           if (response.ok) {
               msgBox.textContent = "Inscrição enviada com sucesso!";
@@ -124,7 +93,6 @@
           }
       })
       .catch(error => {
-        console.error('Error!', error.message);
         msgBox.textContent = "Erro ao enviar inscrição: " + error.message;
         msgBox.className = "msg error";
       })
@@ -132,10 +100,29 @@
           msgBox.style.display = "block";
           submitButton.textContent = 'Enviar Inscrição';
           submitButton.disabled = false;
-          // Esconde a mensagem depois de 5 segundos
           setTimeout(() => { msgBox.style.display = "none"; }, 5000);
       });
     });
+
+    // --- NOVO CÓDIGO PARA LIMITAR CHECKBOXES ---
+    const checkboxesDivisao = document.querySelectorAll('input[name="divisao"]');
+    const maxSelecoes = 2;
+
+    checkboxesDivisao.forEach(checkbox => {
+      checkbox.addEventListener('change', () => {
+        const selecionados = document.querySelectorAll('input[name="divisao"]:checked').length;
+        if (selecionados > maxSelecoes) {
+          alert(`Você pode selecionar no máximo ${maxSelecoes} divisões.`);
+          checkbox.checked = false;
+        }
+      });
+    });
+
+    // --- NOVO CÓDIGO PARA VERIFICAR IMAGEM ---
+    const posterImg = document.getElementById('poster-campeonato');
+    posterImg.onerror = function() {
+      this.style.display = 'none';
+    };
   </script>
 </body>
 </html>
