@@ -19,12 +19,16 @@
       width: 350px; /* Largura fixa para a imagem */
       flex-shrink: 0; /* Impede que a imagem encolha */
       background-color: #f0f0f0;
+      display: flex; /* Adicionado para centralizar a imagem se houver espaço extra */
+      align-items: center; /* Adicionado para centralizar a imagem verticalmente */
+      justify-content: center; /* Adicionado para centralizar a imagem horizontalmente */
     }
     
     .card-image img { 
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      /* ALTERAÇÃO AQUI: 'cover' corta a imagem, 'contain' faz ela caber por inteiro */
+      object-fit: contain; 
       display: block;
     }
 
@@ -88,7 +92,6 @@
 <body>
   <div class="card">
     <div class="card-image">
-      <!-- Imagem do poster do evento -->
       <img src="poster.png" alt="Campeonato ETMPAN" id="poster-campeonato">
     </div>
     
@@ -191,4 +194,3 @@
   </script>
 </body>
 </html>
-
